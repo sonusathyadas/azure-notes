@@ -1,0 +1,179 @@
+
+
+Network
+	- LAN 
+	- Connectivity
+	- Security - Secure Access
+	
+Virtualization (Compute)
+	- Virtual machines
+	- Virtualizers - Hyper-V/VMWare
+	- HostOS (Physical Server)
+	- Guest OS (VM OS)
+	- CPU/Memory
+	
+Storage
+	- Relational data (Strucutured Data) - SQL server, PostgreSQL, MySQL
+	- NoSQL Data ( Semi-Strucutured Data) - MongoDB, Gremlin, Cassandra
+	- Unstructured data - Videos, Images, Audio files, Text files, Documents, Archives
+	
+On-Premise
+	- The infrastructure setup created within the organization.
+	
+Azure
+	- Public Cloud.
+	- Regions- Asia Pacific, US, Europe
+	- Data Center - Building that contains rack of servers. One region may contain multiple data centers.
+	- Subscription - Agreement between the customer and Cloud provider
+		- Customer can create resources in cloud only after acquiring a subscription.
+		- Subscription Types:
+			- Pay-As-You-Go - Individual/SMB
+			- EA - Enterprise Agreement
+				- Reserved Instances
+				- AHB - Azure Hybrid Benefit
+			- Free 
+				- Sponsorship programs
+				- Free Trail (1 month free trail with CC)
+				- MSDN subscription
+	- Azure Public, Azure China, Azure Goverment, Azure Germany
+
+Azure Services
+	- Compute
+		- Service type that offers deployment services for your apps.
+		- IaaS VM, App Service Web App, AKS, Service Fabric, Azure Functions, ACI
+	- Networking
+		- Used to create connectivity between services and networks , Provides network security services
+		- IaaS Virtual Network, Traffic Manager, Load Balancer, Application Gateway, Route Table, VPN Gateway
+	- Storage and Data
+		- Used to store unstructured data
+		- Azure Data Lake Store, Storage Account, Data Disk
+	- Database
+		- Relational and NoSQL databases
+		- SQL Database, SQL Server Managed Instance, Azure Database for PostgreSQL, Azure Database for MySQL, CosmosDB
+	- AI & machine learning
+		- Cognitive Services, Bot Service
+	- Integration services
+		- Integrate application together 
+		- Logic App, Service Bus
+		
+How to interact with Azure Services?
+	- Web UI (Azure Portal) - https://portal.azure.com
+	- Azure PowerShell Core ( Command Line) - Windows/Linux/Mac
+	- Azure CLI (Command Line) - Windows/Linux/Mac
+	- Azure SDK for developers ( .NET SDK, Java SDK, Python SDK, NodeJS SDK)
+	- ARM template - (JSON file) 
+	- REST services (REST api endpoints ) 
+	
+Azure Resource Manager (ARM)
+	- Interface between User and the Azure platform.
+	- Resource is an instance of a service type.
+	- Resource group
+		- Logical container to group mulitple resources in Azure subscription.
+		- Group deployment and deletion.
+		- Role assignments to a user on a group.
+		- Every resource must be part of a resource group. 
+
+Storage Account
+	- it offers 4 storage options - Containers(Blob), File Share, Queue, Table.
+	- Blob Service:
+		- Used to store unstructured data such as audio, video, images, docs , archives etc.
+		- Files are called blobs. 
+		- Blobs are uploaded into containers - Container is a folder type that can store multiple blobs.
+		- Url - https://<storageaccountname>.blob.core.windows.net/<container_name>/<blob_name>
+		- We can set container access policies - Private, Blob, Container. 
+			- Private - not accessible using the URL without access tokens. 
+			- Blob - Anonymous access allowed, not access token required.
+			- Container - Anonymous access allowed, not access token required. Also provides enumerating blobs feature.
+	- File Share
+		- Also used to store unstructured data.
+		- It is mountable to VM and Desktop machines. Mount the file share as a network drive. 
+		- Url - https://<storageaccountname>.file.core.windows.net
+		- It use SMB protocol to allow mounting.
+	- Storage Queue	(replaced Service Bus Queue)
+		- Http Based Queue service
+		- Sender application can send messages to queue and receiver application can receive message from the queue.
+		- Message remains in the queue max for 7 days untill consumed.
+		- One message size is 64Kb
+	- Table (replaced CosmosDB)
+		- NoSQL key-value pair data storage
+		- Used as a database.
+		- records stored in Table is called as Entity.
+		- Each entity can have max of 255 keys, 3 system defined keys (Partition Key, Row Key, Timestamp)
+	- Maximum storage capacity of  storage account is 500TB.
+	- Creation parameters:
+		 - Storage account name : 3-24 chars allowed, all lowercase, unique, no special chars or space allowed.
+		 - Resource Group name
+		 - Perormance: Standard or Premium
+			- Standard - Magnetic Disk 
+			- Premium - SSD storage (for high IOPS)
+		 -  Access Tier (default) : Hot or Cool
+			- Hot - For frequently accessed file
+			- Cool - Infrequently accessed files
+			- Archive: Rarely accessed. 
+		- Redundancy:
+			- LRS - Locally redundant storage
+			- ZRS - Zone Redundant Storage
+			- GRS - Geo-Redundant Storage
+			- RA-GRS - Read-Access Geo-Redundant Storage 
+			- GZRS - Geo-Zone Redundant Storage
+			- RA-GZRS - Read-Access Geo-Zone Redundant Storage
+			
+		 - Account Kind: Storage V2 (General Purpose v2), Storage (General Purpose V1), Blob Storage
+			- Storage V2
+				 - Reccommended and new
+				 - Supports Standard and Premium
+				 - All 4 storage options supported: Blob, File, Queue, Table
+				 - Support Hot and Cool Access tiers
+				 - Zone support
+			- Storage V1
+				- Also supports Standard and Premium
+				- All 4 storage options supported: Blob, File, Queue, Table
+				- Not supporting access tier options
+				- Not supporting Zone 
+			- Blob Storage 
+				- Support only standard storage.
+				- Only Blob service supported
+				- Supports Hot and Cool access tier
+				- Not supporting Zone 
+				
+Azure CLI
+	az login
+	az group list -o table
+	az storage account create -n sonustorageaccount2021 -g LTITrainingGroup -l westus --sku Standard_LRS --kind BlobStorage --access-tier Hot
+	
+PowerShell
+	Connect-AzAccount
+	Get-AzResourceGroup
+	
+	New-AzStorageAccount -Name "sonustorageaccount2021" -ResourceGroupName LTITrainingGroup  -SkuName Standard_LRS -Location 'East US' -Kind StorageV2 -AccessTier Hot
+	
+	Remove-AzStorageAccount -ResourceGroupName LTITrainingGroup -Name 'sonustorageaccount2021'
+
+
+Storage Key
+	- Admin Access
+	- Regenerate the keys
+	- Full permission, no granular permissions
+	
+Shared Access Signature (SAS)
+	- It is an access token used to share the permissions
+	- Set validity duration (start and end time )
+	- Granular permission (Read/Write/List/Create etc)
+	- IP restriction
+	- Service level permissions ( Blob/File/Table/Queue)
+	
+Stored Access Policy
+	- Set container access level as 'Private'
+	- Create a stored access policy for a container
+	- Run the following commands to create a SAS token
+		$ctx = (Get-AzStorageAccount -ResourceGroupName res_grp_name -Name storageaccount_name).Context
+
+		New-AzStorageContainerSASToken -Name "container_name" -Policy "policy_name" -Context $ctx
+	
+	- Copy the SAS token generated and append with the URL of private file to access it.
+	
+
+	
+	
+
+
