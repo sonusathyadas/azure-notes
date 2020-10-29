@@ -172,7 +172,57 @@ Stored Access Policy
 	
 	- Copy the SAS token generated and append with the URL of private file to access it.
 	
-
+Blob Types:
+	- Block Blob
+		- Usually files of type videos, images, audio, archival, docs etc.
+		- 
+	- Page Blob
+	- Append Blob
+	
+App Service Web App
+	- App Service is a compute service. 
+	- App service allows you to deploy web apps and API apps.
+	- App Service is a PaaS that comes with preconfigured servers for deploying web apps or api apps
+		- Supported frameworks: .NET , .NET Core, PHP, Python, Java, NodeJS, Ruby
+		- Built in management functions: Automatic Backup, Scaling, Traffic manager support, Load balancing, monitoring
+		- No need to create any VMs and install the OS 
+	- Default url: https://<webappname>.azurewebsites.net => https://ltiinfotech.in
+	- Scaling:
+		- Vertical Scaling - Scale Up
+		- Horizontal Scaling - Scale Out
+			- Manual
+			- Automatic
+	- App Service Plan
+		- An App Service Plan is used to define the SKU for the compute resource
+		- It also defines the pricing of the resource. 
+		- Pricing options:
+			Free : Shared infrastructure, No Cost involved, No SLA, No Custom domain mapping, No Scaling, No deployment slots, Dev/Test purpose
+			Shared: Shared infrastructure, a minimal cost involved, Custom doamin mapping available, Dev/Test purpose.
+			Basic: Dedicated infrastructure, B1, B2, B3 plans, Support manual scaling up to 3 instances. Dev/Test
+			Standard: Used for Prod, S1, S2, S3 plans, SLA, Deployment slots (5), auto scaling (10nos),  custom domain mapping, dedicated infrastructure, TM support, auto backup 10 times daily.
+			Premium: Used in prod, P1, P2, P3, P1V2, P2V2, P3V2 plans, All features of standard. slots (20), bakup (50 times), scaling (20 nos)
+			
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 
