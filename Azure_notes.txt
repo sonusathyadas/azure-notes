@@ -202,6 +202,88 @@ App Service Web App
 			Standard: Used for Prod, S1, S2, S3 plans, SLA, Deployment slots (5), auto scaling (10nos),  custom domain mapping, dedicated infrastructure, TM support, auto backup 10 times daily.
 			Premium: Used in prod, P1, P2, P3, P1V2, P2V2, P3V2 plans, All features of standard. slots (20), bakup (50 times), scaling (20 nos)
 			
+Azure SQL Database
+	- PaaS service that offers SQL database service to customers. 
+	- Built-in backup, Disaster Recovery, Encryption and firewall Security, Point-In-time restore, VNET security, Geo-replication.
+	- SQL Server in Azure :
+		1) SQL Server on IaaS VM: 
+			- Database Engine along with SSIS, SSRS, SSAS
+			- it requires more administrative tasks to setup Backup, DR, Security, replication etc
+		2) SQL Database with Logical Server. (PaaS)
+			- No Physical server exists, instead it use a TDS endpoint as a logical server that allows user to connect to the database.
+			- Cross database queries are not supported.
+			- SQL Jobs and CRL programming are  not supported
+			- Only provides database engine, SSRS , SSIS, SSAS are not available.
+			- Max storage capacity is 4TB.
+			- No Windows Authentication
+			- No sa user available
+		3) SQL Managed Instance. (PaaS)
+			- PaaS database engine service that provides 100% conpatibility to onpremise database services.
+			- It is better choice for on-premise to cloud migration.
+			- Costlier than SQL Database 
+			- No Windows Authentication
+			- No sa user available
+	- Pricing options:
+		- DTU based 
+			- tight integration between the performance and storage in DTU model.
+			- Basic, Standard, Premium 
+		- vCore based.
+			- Similar to on-premise SQL Server licensing model.
+			- General Purpose, Hyprscale, Business-Critical
+	- Elastic Pool
+		- Shared capacity for multiple tables
+		- Cost saving.
+	- Geo-replication
+		- Automatic failover
+		- Best way to clone database to another region
+		- Stop replication at any time.
+		- After stopping replication both databases works as individual copies.
+	
+Azure Functions
+	- PaaS services. Compute service. Serverless service.
+	- Compute
+		- Provisioned 
+			- If you allocate the compute resources (CPU/RAM) before deploying the apps 
+			- You will be paying for the compute not for the applications or number of executions.
+			- Cost is fixed 			
+		- Serverless 
+			- No need to pre-allocate the compute resources .
+			- Compute resources are created on-demand
+			- When a new request comes it loads the code into a VM and executes , when the execution completes it deallocated the machine.
+			- Cost is calculated based on the number of executions and duration.		
+	- Used to execute a piece of code (function)
+	- Every function is performing an atomic operation.
+	- Function App is a collection of Azure Functions.
+	- A function can be written in C#, JS (NodeJS), PHP, Java, Python, PS etc
+	- Functions SDK is created from WebJobs SDK. 
+	- Function are executed by a trigger.
+		- A trigger is an event or notification sent by user/apps to start the execution of a function.
+		- Types of triggers:
+			- HttpTrigger
+			- QueueTrigger
+			- BlobTrigger
+			- TimerTrigger
+			- EventGridTrigger
+			- EventHubTrigger
+	- How to develop functions?
+		- Azure Portal
+		- Visual Studio 2019 with Functions SDK
+		- Azure Functions CLI - create, build, run, test and deploy using commands.
+		
+	- Pricing plans
+		- Consumption Plan (Serverless)
+			- charged per request and duration
+			- 5 minute is the execution duration. Optionally we can change this to max 10 mts
+		- App Service Plan
+			- Use an existing App Service Plan to run Functions.
+			- No additional cost for functions. 
+		- Premium Plan
+			- High configuration infrastructure used.
+			- Advanced networking features.
+	- Storage Account is required.
+	
+	
+	
 	
 	
 	
