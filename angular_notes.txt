@@ -1,0 +1,187 @@
+
+Libraries vs Frameworks
+	- Frameworks provides the tools and technologies for developing an end-to-end app.
+	- Includes compiler, debugger, deployment and build tools. 
+	- Following a design pattern.
+	- Libraries are just set of functions available as individual JS files.
+	
+AngularJS
+	- JS Library. 
+	
+Angular
+	- Is a Framework 
+	- provides a CLI to create, build, run , test and deploy the application.
+	- NodeJS must be installed. NPM is part of the Node installation. 
+	- install Angular CLI : npm install -g @angular/cli 
+	- Check the installed version : ng --version
+	- Create first project: 
+			ng new <project_name> [options]
+			ng new profile-manager-client 
+	- Open project in VS Code
+		- cd profile-manager-client
+		- code .
+	- Module
+		- A module is a typescript class decorated with @NgModule. 
+		- Module encapsulates the components, directives, pipes  and services 
+		- One project can have multiple modules.
+		- Modules can be built-in angular modules or user defined modules.
+		- Declarations : List of components, directives and pipes 
+		- Imports: List of imported feature modules or built-in modules
+		- providers: List of injectable services. 
+		- bootstrap: Top leavel component to bootstrap
+		- Example: EShop project
+			AppModule - Main module of project
+			User-defined modules
+				StockModule [Components, Directives, Pipes, Services] - Feature Module
+				OrderModule  [Components, Directives, Pipes, Services] - Feature module 
+				PaymentModule [Components, Directives, Pipes, Services] - Feature module				
+			Built-in Module 
+				- RouterModule [Directives, Services] required for routing
+				- FormsModule [Directives, Services] required for user forms 
+				- HttpClientModule - for Http requests
+	- Component
+		- A component is a typescript class decorated with @Component. 
+		- Component has a selector and template file.
+		- Component class (TS  file) is used to define the logic and data , template file (html) is used to deisplay the data.
+		- Create component using CLI:
+			ng generate component <path/name>
+			ng g c components/home
+	- Directive
+		- Is used to change the behaviour or appearance of a DOM element.
+		- 3 types of directives:
+			- Component directive.
+			- Structural directive - Add or remove dom elements , they are prefixed with *
+			- Attribute directive - used to add or remove the behaviour or appearance
+	- Pipe
+		- Pipes are typescript classes decorated with @Pipe.
+		- Pipes are used to transofrm the data while printing in the template page. 
+		- Built in Pipes: uppercase, lowercase, titlecase, number, currency, date, async, json ...
+		- pipes  are applied using the | symbol , eg: data | pipename
+	- Service
+		- A typescript class decorated with @Injectable()
+		- A Service is a reusable class that defines the functions.
+		- A Service instance can be injected into component, pipe, directive or other services.
+		- Create and register the services :
+			- ng generate service <path/name>
+			- eg:
+				@Injectable() 
+				export class DataService{
+				}
+			- register service: locally for components, globally in modules, register to root injector service
+		
+Life Cycle Hook methods
+	- Angular offers some special methods to components and directives to execute a set of code at certain lifecycle events.
+	- We can execute code when the component is created , component is destroyed, component data (binding) is modified
+	- Lifecycle hook methods are provided by the interfaces such as OnInit, OnDestroy, OnChanges
+	- Method names are ngOnInit(), ngOnDestroy(), ngOnChanges() 
+		- ngOnInit() executes when component/directive is initialized.
+		- ngOnDestroy() executes when component is destroyed.
+		- ngOnChanges() executes when the binding data is updated.
+		
+Forms 
+	- @angular/forms
+	- Two approaches: ReactiveForms and Template Driven Forms.
+		- import ReactiveFormsModule from @angular/forms 
+		- import FormsModule from @angular/forms
+	- ReactiveForms: Create the FormGroup object in TS file. Form validation also configured in TS file. 
+		- FormGroup and FormControl  and FormBuilder classes .
+		- formGroup and formControlName directives also used.
+		- FormGroup is the collection of FormControls
+			- They adds validation properties to  the form and controls like valid, invalid, value, dirty, pristine, touched, untouched and errors
+		- every control must have the name attribute.
+	- Template Driven Forms
+		- We use the HTML 5 validation attributes.
+		- Use the ngModel and ngForm directives.
+		- These directives adds the properties for validation and error checking such as valid, invalid, value, dirty, pristine, touched, untouched and errors
+		- For controls we need to assign a reference variable (#variable )
+	
+Observables vs Promises
+	Promises:
+		Built-in feature of JS, no additional library required.
+		Single result. Request-response pattern.
+		not Cancellable	
+	Observables:
+		Not built-in, RxJS library need to be imported. (ReactiveX)
+		Subscriber (Observable ) pattern is used. Once registered , you will get the updates automatically untill you unsubscribe.
+		Cancellable 
+		Provides a set of operator function to transform, create observables, error handling, retry 
+		
+JSON Server 
+	- Fake REST API server
+	- Install: npm install -g json-server
+	- Start the REST service : json-server profiledb.json
+	
+Resolver:
+	- Is a service that is used to prefetch/preload the data before activating a route.
+	
+HttpInterceptor
+
+Guard:
+	- A Service class used to protect the routes in the application.
+	- Prevent the loading of routes with conditions.
+	- Prevent accidental data loss from forms in Angular.
+	- CanActivate, CanDeactivate guards to protect the routes.
+	
+Lazy loading 
+	- Create feature modules and load the feature modules on demand
+	- App routing module is updated automatically when creating feature module with CLI
+	- ES6 syntax for lazy loaded modules
+		{ 
+			path: 'admin', 
+			loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) 
+		}
+	- Create a feature module:
+		ng g module admin --route admin --module app.module
+	- Create a component in feature module
+		ng g c admin/components/report --module admin.module
+	- Define the routes in the routing file of feature module
+	- Create hyperlinks to navigate to the feature modules components
+	
+Internationalization (i18n)
+	- a way to localize the website to support multiple languages.
+	- use @angular/localize package to enable i18n for the website
+	- ng add @angular/localize
+	- generate message.xlf  using 
+		ng xi18n --output-path src/localization
+	- create copies of message.xlf and create translated versions
+		eg: messages.fr.xlf
+			  messages.hi.xlf
+			  messages.xlf (Default)
+			  
+	- Add <target>Translated text here</target> for every <source>Original Text</source> element
+	- Update the angular.json file to configure the i18n
+		"prefix":"app",
+		"i18n": {
+                "sourceLocale":"en-US",
+                "locales": {
+                    "fr":"src/localization/messages.fr.xlf",
+                    "hi":"src/localization/messages.hi.xlf"
+                }
+            },
+	- Update the build configuration to generate localized versiosn of app
+		- "localize":true in the options sections.
+	- generate the localized version of app using build
+		ng build --prod
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	
+	
+	
+	
+	
+	
+	
+	
+		
+		
+		
+		
+		
