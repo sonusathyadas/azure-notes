@@ -1,0 +1,63 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "storageName": {
+            "type": "string",
+            "metadata": {
+                "description": "description"
+            }
+        },
+        "storageKind": {
+            "type": "string",
+            "allowedValues": [
+                "StorageV2",
+                "StorageV1",
+                "BlobStorage"
+            ],
+            "defaultValue":"StorageV2",
+            "metadata": {
+                "description": "description"
+            }
+        },
+        "skuName": {
+            "type": "string",
+            "allowedValues": [
+                "Standard_LRS",
+                "Standard_ZRS",
+                "Standard_GRS",
+                "Standard_RAGRS"
+            ],
+            "defaultValue":"Standard_LRS",
+            "metadata": {
+                "description": "description"
+            }
+        }
+    },
+    "functions": [],
+    "variables": {
+        "displayText": "[concat(parameters('storageName'),'-Custom')]"
+    },
+    "resources": [
+        {
+            "name": "[parameters('storageName')]",
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2019-06-01",
+            "tags": {
+                "displayName": "[variables('displayText')]"
+            },
+            "location": "[resourceGroup().location]",
+            "kind": "[parameters('storageKind')]",
+            "sku": {
+                "name": "[parameters('skuName')]",
+                "tier": "Standard"
+            }
+        }
+    ],
+    "outputs": {
+        "output": {
+            "type": "string",
+            "value": "Storage account is created successfully"
+        }
+    }
+}
