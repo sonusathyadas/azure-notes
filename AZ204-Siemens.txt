@@ -1,0 +1,283 @@
+
+Azure 
+	- Cloud Service models
+		- IaaS 
+			- Infrastructure as a Service
+			- Compute, Storage and Network. 
+				- VM (CPU core and RAM)
+				- Disk (OS Disk, Data Disk)
+				- Virtual LAN (Virtual Network)
+			- Platform services: Backup, Monitoring, Security, Disaster Recovery, Scaling
+			- Configuring the platofrm services is the responsibility of customer.
+			- used by IT Pro.
+			- VMs. VMSS, VNET, Disk
+		- PaaS 
+			- Preconfigured platform which is ready to use.
+			- Platform services are configured by defualt to PaaS services. 
+			- Used by Developers .
+			- App Service Web App, API Gateway, Logic Apps, Functions, Service Bus, Event Grid, Event Hub, Storage Account, Traffic Manager, Application Insights, Azure Container Instances, Azure Service Fabric, Azure Kubernetes (AKS)
+		- SaaS 
+			- Application is also provided by the cloud provider. 
+			- used by end customers (non-technical)
+
+Terminologies
+	- Data Center
+		- Public - West India, Central India, South India, Southeast Asia, East Asia, East US, West US
+		- Non-Public - Azure Germany, Azure China, US-Goverment
+	- ARM - Azure Resource Manager
+		- An interface between the Azure Services and the User.
+	- Deployment Template
+		- JSON file that describes the configuration of the service.		
+	- Resource Group
+		- A logical container to group the resources together.
+	- Resource.
+		- An instance of a service.
+		- A vm instance 
+	- Market Place
+		- Its a place where you can see the templates available for deployment.
+		
+Azure  Login
+	- Web UI - Azure Portal
+		- https://portal.azure.com
+	- PowerShell
+		- Install the Azure Modules in Local machine or use the Cloud Shell
+		Connect-AzAccount
+	- Azure CLI
+		- Install the Azure CLI in local machine or use Cloud Shell
+		az login
+	- SDK
+		- ConnectionString or Keys
+	- ARM templates
+		- JSON template 
+	
+App Service Plans
+	- Free (F1)
+		- Free, no cost
+		- No SSL, No Custom Domain, No Deployment Slots, No Dedicated infra, No Traffic Manager support, No SLA, No scaling
+	- Shared (D1)
+		- Same as Free
+		- Provides Custom Domain mapping
+		- A small cost involved. 
+	- Basic  (B1, B2, B3)
+		- Same features of Shared 
+		- Dedicated infra
+		- Manual Scaling  upto 3 instance.
+	- Standard (S1, S2, S3)
+		- Production ready
+		- SLA of 99.99%, Automatic Backup 10 times in a day,
+		- Traffic manager support
+		- Manual scaling and auto scaling upto 10 instances
+		- Deployment slots upto 5 nos.
+	- Premium (P1, P2, P3, P1V2, P2V2, P3V2, P1V3, P2V3, P3V3)
+		- Higher config infra
+		- Daily 50 times backup
+		- No of deployment slots - 20
+		- Scaling instances 20 instances
+	- Isolated (ASE - App Service Environment)
+Storage account
+	- Blob (Containers)
+	- FileShare
+	- Queue
+	- Table
+	
+	- Blobs
+		- A binary large file , a image, video, audio, doc, spreadsheet, zip archives etc.
+		- Blob container to be created.
+		- Blobs are accessible using an http url 
+				https://mysamplestorage.blob.core.windows.net/images/nature1.jpg
+				https://mysamplestorage.blob.core.windows.net/videos/video1.mp4
+				https://mysamplestorage.blob.core.windows.net/reports/year2019/salesdata.xlsx
+				https://mysamplestorage.blob.core.windows.net/reports/year2020/salesdata.xlsx
+							
+		- We can set the access permissions on container levels.
+			- Private - no anonymous access allowed
+			- Blob 	 - Allows anonymous access (Read)	
+					https://mysamplestorage.blob.core.windows.net/images/nature1.jpg
+			- Container  - Allows anonymous access (Read, List)
+					https://mysamplestorage.blob.core.windows.net/images - List
+	
+NoSQL
+	- Document (JSON)
+		- MongoDB, Core SQL (DocumentDB) 
+	- Key-Value 
+		- Redis, Azure Table API.
+	- Column Family
+		- Cassandra
+	- Graph databases (edges and vertices)
+		- Gremlin, Neo4J
+		
+CosmosDB
+	- Is an Azure Service that provides multiple NoSQL database engines.
+	
+Azure Functions
+	- Serverless service, Compute, PaaS service
+	- Compute infra is not allocated at the time of  creation. It is dynamically allocated.
+	- When request is received it allocates the compute.
+	- Use to run a function ( piece of code)
+	- The function can be C#, Java, Python, NodeJS, PS script
+	- Used to run atomic task - 
+		- Covert image to greyscale
+		- Convert doc to PDF
+		- Copy files from one blob to another
+		- Start the backup process.
+		- Send mail to user.
+	- Create function
+		- In Portal development. (Not reccommended, no intellisense, Use Non Object oriented C# script ( .csx files))
+		- Local development
+			- CLI - command based (Install Azure Functions CLI)
+			- Visual studio extension for Function (Object oriented, nuget package manager)
+	- Function App
+		- Function App is the collection of multiple functions
+		- A function app has a runtime (v1 (.net framework based), V2(.NET Core based), V3 (.NET Core 3.x based))
+	- Hosting models
+		- App Service 
+			- Allow you to run the functions inside an existing app Service plan
+			- No additional cost, function is sharing the app service VM
+			- Scaling is the responsibility of user.
+			- Reccommended only if already using an app service plan.
+			- No time limit. 
+			- No delay in first request execution
+		- Consumption plan
+			- The compute resources allocated dynamically. (in a lease mode)
+			- VMs are allocated by azure, need to pay for those vms seperately.
+			- Scaling is taken care by Azure.
+			- Use consumption plan if only function are used.
+			- Default max duration of execution is 5 mts, can be extended up to 10mts. 
+			- Delay exists for first request. 
+		- Premium
+			- Premium infra - high capacity compute
+			- provides additional networking features.
+			
+
+docker commands;
+	- docker images 
+		 List the images
+	- docker pull
+		download images
+		eg: docker pull nginx:latest
+	- docker run 
+		run the container
+		eg: docker run --name "mynginx" -p 8080:80 -d nginx:latest
+	- docker ps
+		List the running containers
+	- docker ps -a 
+		List running and stopped containers
+	- docker build 
+		Create a docker image using docker file
+	- docker start
+		start a stopped container which is created before.
+		eg: docker start mynginx
+	- docker stop
+		Stop a running container
+		eg: docker stop mynginx
+	- docker push
+		Upload the image to registry (Docker Hub/ACR)
+		
+		
+		
+Dockerfile commands
+	FROM <name-of-base-image>
+	WORKDIR <dir-path>
+	COPY <src> <dest>
+	EXPOSE <port>
+	RUN <cmd> [args]
+	CMD/ENTRYPOINT <cmd> [args]
+	ENV <key> <value>
+
+	Save file with the name 'Dockerfile' . (no extension)
+
+	1) Create docker image locally-> docker build -t imagename .
+
+	2) Renamed the image with prefix of acr login server name - > docker tag <src> <dest>
+
+	3) Pushed the image to acr -> docker push <imagename>
+
+	----------------------------------------
+
+	az acr build --image sampleapp:latest --registry sonuacr ./
+
+
+Logic Apps
+	- PaaS service, Serverless service, used to created workflows.
+	- Functions, Durable functions
+		- Need to write the code
+		- Functions are used for atomic operations, Durable functions are for workflows.
+		- Triggers are used to start the execution 
+		- Bindings are used to connect to other services(Input/output)
+	- Logic Apps
+		- No need for writing code.
+		- It provides a Workflow designer 
+		- Azure service will write the code in the form of JSON for you. 
+		- It is also triggered to start execution
+		- Connectors are used to connect to azure services and external SaaS services.
+			- Connector includes triggers and actions.
+			
+Message driven architecture
+	- Service Bus Queue
+		- One message size is 256Kb
+		- Message is encrypted and send in binary
+		- Max TTL is 14 Days
+		- Dead-letter queue to store expired messages.
+		- FIFO is guranteed
+		- Large messages can be send as chunks with corelation id, they will be assembled in the receiver 
+		- MSMQ protocol (Message Broker service)
+		- Supports simple Queues and Topics
+		- Complex coding required to implement
+		- Max 16GB/32 GB supported for storage. (Depends on pricing tier) 
+		- Enterprise integration scenarios 
+	- Storage Account Queue
+		- One message max size is 64Kb only.
+		- Sending messages as plain text( no encryption)
+		- Max TTL (Time to Live) is 7 Days
+		- Expired messages are not stored.
+		- FIFO is not guaranteed
+		- No corelation id, all messages are treated as individual messages.
+		- HTTP based service 
+		- Supports only Queues, no topics
+		- Simple to implement
+		- Max storage of queue is 500Tb
+		- Simple background jobs and other tasks
+
+
+Redis
+	- Redis is an open-source linux based nosql database service (key-value)
+	- Commonly used for caching purposes.
+	
+
+
+
+
+
+
+
+
+
+
+
+	
+			
+			
+			
+			
+			
+			
+			
+			
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
